@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<head>
+    <title>Word Guess Game</title>
+    <script src="assets/javascript/game.js"></script>
+    <link href="assets/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<!--Main Menu-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Word Guess Game</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary btn-lg">Start</button>
+        </div>
+    </div>
+</div>
+<!--In game-->
+<div class="container" id="onKeyListen">
+    <div class="row">
+        <h1>Scoreboard Bro</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h1 id="wordShown">This is where The Word will be shown</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>The word contains... </h2>
+            <div id="user-input">Huh?</div>
+            <button type="button" class="btn btn-primary btn-lg" id="submitAnswer">Submit</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
