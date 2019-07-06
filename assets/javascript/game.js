@@ -58,7 +58,8 @@ document.addEventListener("DOMContentLoaded", function(){
             console.log(userInput);
             currentGuess = userInput;
             document.getElementById("user-input").innerText = currentGuess;
-        }
+        } else if(userInput === "enter") // Make Enter button as a submit button;
+            submitAnswerVae();
     };
 
      // submitAnswer is linked to the button where user confirms the answer;
@@ -88,24 +89,40 @@ document.addEventListener("DOMContentLoaded", function(){
      */
     function checkCondition() {
         if(wordShown.indexOf("_") === -1) {
-            // Game won!
+            // Game won! :)
             wins++;
             totalGame++;
-            alert("GAME END HERE! code not done!");
-            // Prompt for "play again screen";
+            document.getElementById("text-in-modal0").innerText = "That's right! the word is " + word + ".";
+            word = "";currentGuess = ""; wordShown = ""; wrongGuess = 0; guessed = [];
+            $('#game-won-modal').modal({backdrop: 'static', keyboard: false});
         }
         if(wrongGuess === guessChance) {
             // Game Lost... ;(
             totalGame++;
-            alert("GAME END HERE! code not done!");
-            // Prompt for "play again screen";
+            document.getElementById("text-in-modal1").innerText = "Aweee... The word is actually" + word + ".";
+            word = "";currentGuess = ""; wordShown = ""; wrongGuess = 0; guessed = [];
+            $('#game-lost-modal').modal({backdrop: 'static', keyboard: false});
         }
         document.getElementById("score-board").innerText = "Wins : " + wins + "/" + totalGame + "\tWrong Guess : " + wrongGuess + "/" + guessChance;
     }
 
+    // updateUserScreen() update scores, user input, and the word shown to user;
     function updateUserScreen() {
         document.getElementById("user-input").innerText = "";
         document.getElementById("score-board").innerText = "Wins : " + wins + "/" + totalGame + "\tWrong Guess : " + wrongGuess + "/" + guessChance;
         document.getElementById("wordShown").innerText = wordShown;
     }
+
+    // Clear everything and switch back to Main-Menu screen;
+    $(".back-to-main-menu").click(function(){
+        $("#game-won-modal").modal("hide");
+        document.getElementById("in-game").style.display = "none";
+        document.getElementById("main-menu").style.display = "block";
+    });
+
+    // Play again;
+    $(".play-again").click(function () {
+        $("#game-won-modal").modal("hide");
+        chooseWord();
+    });
 });
