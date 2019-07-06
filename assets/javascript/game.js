@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function(){
     function startGame() {
         document.getElementById("user-input").innerText = "";
         document.getElementById("score-board").innerText = "Wins : " + wins + "/" + totalGame + "\tWrong Guess : " + wrongGuess + "/" + guessChance;
+        document.getElementById("guessed-view").innerText = "";
         document.getElementById("main-menu").style.display = "none";
         document.getElementById("in-game").style.display = "block";
         chooseWord();
@@ -99,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function(){
         if(wrongGuess === guessChance) {
             // Game Lost... ;(
             totalGame++;
-            document.getElementById("text-in-modal1").innerText = "Aweee... The word is actually" + word + ".";
+            document.getElementById("text-in-modal1").innerText = "Aweee... The word is actually " + word + ".";
             word = "";currentGuess = ""; wordShown = ""; wrongGuess = 0; guessed = [];
             $('#game-lost-modal').modal({backdrop: 'static', keyboard: false});
         }
@@ -111,11 +112,13 @@ document.addEventListener("DOMContentLoaded", function(){
         document.getElementById("user-input").innerText = "";
         document.getElementById("score-board").innerText = "Wins : " + wins + "/" + totalGame + "\tWrong Guess : " + wrongGuess + "/" + guessChance;
         document.getElementById("wordShown").innerText = wordShown;
+        document.getElementById("guessed-view").innerText = "Letter already guessed : " + guessed;
     }
 
     // Clear everything and switch back to Main-Menu screen;
     $(".back-to-main-menu").click(function(){
         $("#game-won-modal").modal("hide");
+        $("#game-lost-modal").modal("hide");
         document.getElementById("in-game").style.display = "none";
         document.getElementById("main-menu").style.display = "block";
     });
@@ -123,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function(){
     // Play again;
     $(".play-again").click(function () {
         $("#game-won-modal").modal("hide");
+        $("#game-lost-modal").modal("hide");
         chooseWord();
     });
 });
