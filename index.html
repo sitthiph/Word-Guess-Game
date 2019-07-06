@@ -3,7 +3,6 @@
 <meta charset="UTF-8">
 <head>
     <title>Word Guess Game</title>
-    <script src="assets/javascript/game.js"></script>
     <link href="assets/css/reset.css" rel="stylesheet" type="text/css">
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -11,7 +10,7 @@
 </head>
 <body>
 <!--Main Menu-->
-<div class="container">
+<div class="container" id="main-menu">
     <div class="row">
         <div class="col-md-12">
             <h1>Word Guess Game</h1>
@@ -19,14 +18,14 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary btn-lg">Start</button>
+            <button type="button" class="btn btn-primary btn-lg" id="start">Start</button>
         </div>
     </div>
 </div>
 <!--In game-->
-<div class="container" id="onKeyListen">
+<div class="container" id="in-game">
     <div class="row">
-        <h1>Scoreboard Bro</h1>
+        <h1 id="score-board">Scoreboard</h1>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -36,10 +35,11 @@
     <div class="row">
         <div class="col-md-12">
             <h2>The word contains... </h2>
-            <div id="user-input">Huh?</div>
+            <h2 id="user-input">User-input</h2>
             <button type="button" class="btn btn-primary btn-lg" id="submitAnswer">Submit</button>
         </div>
     </div>
 </div>
 </body>
+<script src="assets/javascript/game.js"></script>
 </html>
