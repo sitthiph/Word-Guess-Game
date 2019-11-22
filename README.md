@@ -6,3 +6,12 @@ Hit the start button and you can play right away by typing the letters to the se
 
 ## How it works
 This game uses HTML, CSS, and Javascript to run. The Javascript only uses built in functions, and is designed around a game state object. Player input is intercepted via key presses (binding game functions to the document.keyup event).
+
+## Motivation
+The goal of this game was to use the [Bootstrap](https://getbootstrap.com//) for the first time and understand how it works with the grid system and its custom modal.
+
+## Technology Used
+* [Bootstrap](https://getbootstrap.com//) - CSS Framework
+* Pure Javascript
+* HTML5
+* CSS3
