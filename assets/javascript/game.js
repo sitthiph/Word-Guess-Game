@@ -14,7 +14,7 @@
  * acceptedKey -> to only captures a-z letters from user's keyboard;
  */
 
-let word = "", currentGuess = "", wordShown = "", wins = 0, totalGame = 0, wrongGuess = 0, guessed = [];
+let word = "", currentGuess = "a", wordShown = "", wins = 0, totalGame = 0, wrongGuess = 0, guessed = [];
 const guessChance = 10;
 const wordBank = ["dance", "skip", "jumping", "jack", "shark", "chicken", "alligator", "chair", "robot", "head",
     "smile", "baseball", "bird", "happy", "scissors", "cheek", "back", "jump", "drink", "ice", "cream", "cone", "car",
@@ -34,11 +34,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // startGame() changes container from main-menu to in-game, updates in-game container, and calls chooseWord();
     function startGame() {
-        document.getElementById("user-input").innerText = "";
-        document.getElementById("score-board").innerText = "Wins : " + wins + "/" + totalGame + "\tWrong Guess : " + wrongGuess + "/" + guessChance;
+        document.getElementById("user-input").innerText = currentGuess; // default input field
+        // document.getElementById("score-board").innerText = `Wins : ${wins}` + "Wins : ${wins}" + "/" + totalGame + " Wrong Guess : " + wrongGuess + "/" + guessChance;
+        document.getElementById("score-board").innerText = `Wins: ${wins}/${totalGame}  Wrong Guess: ${wrongGuess}/${guessChance}`;
         document.getElementById("guessed-view").innerText = "";
         document.getElementById("main-menu").style.display = "none";
         document.getElementById("in-game").style.display = "block";
+
         chooseWord();
     }
 
@@ -47,23 +49,23 @@ document.addEventListener("DOMContentLoaded", function(){
         let wordIndex = Math.floor(Math.random() * Math.floor(wordBank.length));
         word = wordBank[wordIndex];
         for(let i = 0; i < word.length; i++)
-            wordShown += "_";
+          wordShown += "_ ";
         document.getElementById("wordShown").innerText = wordShown;
-        console.log(word);
+        // console.log(word);
     }
 
     // get Keyboard's input and constantly update them on the screen;
     document.onkeyup = function (event) {
         let userInput = event.key.toLowerCase();
         if (acceptedKey.includes(userInput)) {
-            console.log(userInput);
+            // console.log(userInput);
             currentGuess = userInput;
             document.getElementById("user-input").innerText = currentGuess;
         } else if(userInput === "enter") // Make Enter button as a submit button;
             submitAnswerVae();
     };
 
-     // submitAnswer is linked to the button where user confirms the answer;
+    // submitAnswer is linked to the button where user confirms the answer;
     let submitAnswer = document.getElementById("submitAnswer");
     submitAnswer.onclick = submitAnswerVae;
 
@@ -74,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function(){
         } else if(word.includes(currentGuess)) {
             for(let i = 0; i < wordShown.length; i++) {
                 if(word.charAt(i) === currentGuess)
-                    wordShown = wordShown.substring(0,i) + currentGuess + wordShown.substring(i+1);
+                    wordShown = wordShown.substring(0,i) + currentGuess + wordShown.substring(i+2);
             }
         } else {
             wrongGuess++;
@@ -82,6 +84,21 @@ document.addEventListener("DOMContentLoaded", function(){
         guessed.push(currentGuess);
         checkCondition();
         updateUserScreen();
+    }
+
+    // newGame will create a new game when user clicks the button 
+    let newGame = document.getElementById("newGame");
+    newGame.onclick = createNewGame;
+
+    // createNewGame will flush current variables but keep total game and wins and start a new game 
+    function createNewGame() {
+      // let word = "", currentGuess = "a", wordShown = "", wins = 0, totalGame = 0, wrongGuess = 0, guessed = [];
+      word = "";
+      wordShown = "";
+      wrongGuess = 0;
+      guessed = [];
+      
+      startGame();
     }
 
     /**
@@ -94,23 +111,23 @@ document.addEventListener("DOMContentLoaded", function(){
             wins++;
             totalGame++;
             document.getElementById("text-in-modal0").innerText = "That's right! the word is " + word + ".";
-            word = "";currentGuess = ""; wordShown = ""; wrongGuess = 0; guessed = [];
+            word = ""; currentGuess = ""; wordShown = ""; wrongGuess = 0; guessed = [];
             $('#game-won-modal').modal({backdrop: 'static', keyboard: false});
         }
         if(wrongGuess === guessChance) {
             // Game Lost... ;(
             totalGame++;
             document.getElementById("text-in-modal1").innerText = "Aweee... The word is actually " + word + ".";
-            word = "";currentGuess = ""; wordShown = ""; wrongGuess = 0; guessed = [];
+            word = ""; currentGuess = ""; wordShown = ""; wrongGuess = 0; guessed = [];
             $('#game-lost-modal').modal({backdrop: 'static', keyboard: false});
         }
-        document.getElementById("score-board").innerText = "Wins : " + wins + "/" + totalGame + "\tWrong Guess : " + wrongGuess + "/" + guessChance;
+        // document.getElementById("score-board").innerText = `Wins: ${wins}/${totalGame}  Wrong Guess: ${wrongGuess}/${guessChance}`;
     }
 
     // updateUserScreen() update scores, user input, and the word shown to user;
     function updateUserScreen() {
-        document.getElementById("user-input").innerText = "";
-        document.getElementById("score-board").innerText = "Wins : " + wins + "/" + totalGame + "\tWrong Guess : " + wrongGuess + "/" + guessChance;
+        // document.getElementById("user-input").innerText = "";
+        document.getElementById("score-board").innerText = `Wins: ${wins}/${totalGame}  Wrong Guess: ${wrongGuess}/${guessChance}`;
         document.getElementById("wordShown").innerText = wordShown;
         document.getElementById("guessed-view").innerText = "Letter already guessed : " + guessed;
     }
@@ -127,6 +144,6 @@ document.addEventListener("DOMContentLoaded", function(){
     $(".play-again").click(function () {
         $("#game-won-modal").modal("hide");
         $("#game-lost-modal").modal("hide");
-        chooseWord();
+        createNewGame();
     });
 });
